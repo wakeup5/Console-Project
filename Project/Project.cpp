@@ -4,13 +4,26 @@
 #include <iostream>
 #include "RenderBuffer.h"
 
+//#define cimg_use_png
+#define cimg_use_jpeg
+#include "CImg.h"
+using namespace cimg_library;
+
+#define SCREEN_WIDTH 120
+#define SCREEN_HEIGHT 120
+
 int main()
 {
-    RenderBuffer* buffer = new RenderBuffer(120, 120);
+    CImg<float> image("a.jpg");
+    image.blur(2.5);
+    //image.display();
+    CImgDisplay main_disp(image, "Click a point");
+
+    RenderBuffer* buffer = new RenderBuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     int i = 0;
     while (i++ < 10) {
-        buffer->Clear('a' + i);
+        buffer->Clear('a' + i - 1);
         buffer->Draw();
 
         Sleep(1000);

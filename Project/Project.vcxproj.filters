@@ -18,18 +18,18 @@
     <ClCompile Include="Project.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ConsoleApp.cpp">
+    <ClCompile Include="RenderBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="RenderBuffer.cpp">
+    <ClCompile Include="UnicodeImage.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConsoleApp.h">
+    <ClInclude Include="RenderBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="RenderBuffer.h">
+    <ClInclude Include="UnicodeImage.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

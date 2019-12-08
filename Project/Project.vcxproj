@@ -72,6 +72,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Projects\Learning\jpeg-9c;C:\Projects\Learning\GnuWin32\include;C:\Projects\Learning\CImg-2.8.0;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Projects\Learning\jpeg-9c\Release;C:\Projects\Learning\GnuWin32\lib;$(LibraryPath)</LibraryPath>
+    <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -94,6 +97,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>jpeg.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -147,13 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleApp.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="RenderBuffer.cpp" />
+    <ClCompile Include="UnicodeImage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConsoleApp.h" />
     <ClInclude Include="RenderBuffer.h" />
+    <ClInclude Include="UnicodeImage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
