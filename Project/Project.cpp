@@ -3,33 +3,50 @@
 
 #include <iostream>
 #include "RenderBuffer.h"
+#include "UnicodeImage.h"
 
-//#define cimg_use_png
-#define cimg_use_jpeg
-#include "CImg.h"
-using namespace cimg_library;
-
-#define SCREEN_WIDTH 120
-#define SCREEN_HEIGHT 120
+#define SCREEN_WIDTH 200
+#define SCREEN_HEIGHT 200
+//#define SCREEN_RATE 0.625f // (5 / 8)
 
 int main()
 {
-    CImg<float> image("a.jpg");
-    image.blur(2.5);
-    //image.display();
-    CImgDisplay main_disp(image, "Click a point");
-
-    RenderBuffer* buffer = new RenderBuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
-
-    int i = 0;
-    while (i++ < 10) {
-        buffer->Clear('a' + i - 1);
-        buffer->Draw();
-
-        Sleep(1000);
+    CONSOLE_FONT_INFOEX cfi;
+    cfi.cbSize = sizeof(cfi);
+    cfi.nFont = 0;
+    cfi.dwFontSize.X = 5;
+    cfi.dwFontSize.Y = 4;
+    cfi.FontFamily = FF_DONTCARE;
+    cfi.FontWeight = FW_NORMAL;
+    if (!SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi)) {
+        std::cout << "SetCurrentConsoleFontEx failed with error " << GetLastError() << std::endl;
+        return -1;
     }
 
-    delete buffer;
+    SMALL_RECT windowSize = { 0, 0, 230, 230 };
+    if (!SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize))
+    {
+        std::cout << "SetConsoleWindowInfo failed with error " << GetLastError() << std::endl;
+        return -1;
+    }
+
+    if (!SetConsoleTitle(L"Console Project"))
+    {
+        std::cout << "SetConsoleTitle failed with error " << GetLastError() << std::endl;
+        return -1;
+    }
+
+    UnicodeImage image("a.jpg", 100, 100);
+    RenderBuffer buffer(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    int i = -1;
+    while (i++ < 100) {
+        buffer.Clear('=');
+        image.DrawTo(&buffer, { 10 + i, 10 + i });
+
+        buffer.Render();
+        Sleep(25);
+    }
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
