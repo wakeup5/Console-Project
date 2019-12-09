@@ -2,7 +2,7 @@
 
 #include <Windows.h>
 
-#include "UnicodeImage.h";
+#include "UnicodeImage.h"
 #include "RenderBuffer.h"
 
 class TiledSprite

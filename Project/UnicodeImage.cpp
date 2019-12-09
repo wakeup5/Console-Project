@@ -1,11 +1,11 @@
 ﻿#include "UnicodeImage.h"
 
-const char map[70] = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. ";// " .:-=+*#%@"; //" .,:;ox%#@";
-
+const TCHAR map[] = TEXT(" .,:;ox%#@"); //" .,:;ox%#@";
+int mapSize = 10;
+int contrastcurve[] = { 0,0,0,0,0,0,0,0,1,1,1,1,1,2,2,2,2,3,3,3,4,4,5,5,6,6,6,7,8,8,9,9,10,10,11,12,12,13,14,14,15,16,17,17,18,19,20,21,22,23,23,24,25,26,27,28,29,30,31,32,33,34,35,37,38,39,40,41,42,43,45,46,47,48,49,51,52,53,54,56,57,58,60,61,62,64,65,66,68,69,71,72,73,75,76,78,79,81,82,84,85,87,88,90,91,93,94,96,97,99,100,102,103,105,106,108,109,111,113,114,116,117,119,120,122,124,125,127,128,130,131,133,135,136,138,139,141,142,144,146,147,149,150,152,153,155,156,158,159,161,162,164,165,167,168,170,171,173,174,176,177,179,180,182,183,184,186,187,189,190,191,193,194,195,197,198,199,201,202,203,204,206,207,208,209,210,212,213,214,215,216,217,218,220,221,222,223,224,225,226,227,228,229,230,231,232,232,233,234,235,236,237,238,238,239,240,241,241,242,243,243,244,245,245,246,246,247,247,248,249,249,249,250,250,251,251,252,252,252,253,253,253,253,254,254,254,254,254,255,255,255,255,255,255,255,255 };
 UnicodeImage::UnicodeImage(const char* filename, int width, int height)
 	:width(width)
 	,height(height)
-	,image(NULL)
 {
     /*
     * VARIABLES ---------------------
@@ -45,17 +45,72 @@ UnicodeImage::UnicodeImage(const char* filename, int width, int height)
         mask(x, y, 0, 0) = (R == 255 && G == 0 && B == 255) ? 0 : 1;
     }
 
-	this->image = new char[width * height];
+	this->image = new TCHAR[width * height];
     this->mask = new bool[width * height];
     
 	for (int h = 0; h < height; h++) {
 		for (int w = 0; w < width; w++) {
             unsigned char v = grayWeight(w, h, 0, 0);
 
-            this->image[h * width + w] = map[(v) * 70 / 256];
+            this->image[h * width + w] = map[(v) * mapSize / 256];
             this->mask[h * width + w] = mask(w, h, 0, 0) == 1;
 		}
 	}
+}
+
+UnicodeImage::UnicodeImage(const char* filename)
+{
+    /*
+    * VARIABLES ---------------------
+    * Creation of two instances of images of unsigned char pixels.
+    * The first image _image_ is initialized by reading an image file from the disk.
+    * Here, lena.jpg must be in the same directory than the current program.
+    * Note that you must also have installed the ImageMagick package
+    * in order to be able to read JPG images.
+    * var(size_x, size_y, size_z, dv, default_fill)
+    */
+    CImg<int> temp(filename);
+    
+    this->width = temp.width();
+    this->height = temp.height();
+
+    CImg<int> grayWeight(width, height, 1, 1, 0),
+        imgR(width, height, 1, 3, 0),
+        imgG(width, height, 1, 3, 0),
+        imgB(width, height, 1, 3, 0);
+
+    CImg<int> mask(width, height, 1, 1, 0);
+
+    // for all pixels x,y in image
+    cimg_forXY(temp, x, y) {
+        imgR(x, y, 0, 0) = temp(x, y, 0, 0),    // Red component of image sent to imgR
+            imgG(x, y, 0, 1) = temp(x, y, 0, 1),    // Green component of image sent to imgG
+            imgB(x, y, 0, 2) = temp(x, y, 0, 2);    // Blue component of image sent to imgB
+
+            // Separation of channels
+        int R = (int)temp(x, y, 0, 0);
+        int G = (int)temp(x, y, 0, 1);
+        int B = (int)temp(x, y, 0, 2);
+
+        // Real weighted addition of channels for gray
+        int grayValueWeight = (int)(0.299 * R + 0.587 * G + 0.114 * B);
+
+        // saving píxel values into image information
+        grayWeight(x, y, 0, 0) = grayValueWeight;
+        mask(x, y, 0, 0) = (R == 255 && G == 0 && B == 255) ? 0 : 1;
+    }
+
+    this->image = new TCHAR[width * height];
+    this->mask = new bool[width * height];
+
+    for (int h = 0; h < height; h++) {
+        for (int w = 0; w < width; w++) {
+            unsigned char v = grayWeight(w, h, 0, 0);
+
+            this->image[h * width + w] = map[(v) *mapSize / 256];
+            this->mask[h * width + w] = mask(w, h, 0, 0) == 1;
+        }
+    }
 }
 
 UnicodeImage::~UnicodeImage()

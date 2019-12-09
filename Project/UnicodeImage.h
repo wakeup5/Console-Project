@@ -14,10 +14,11 @@ class UnicodeImage
 private:
 	int width;
 	int height;
-	char* image;
+	TCHAR* image;
 	bool* mask;
 
 public:
+	UnicodeImage(const char* filename);
 	UnicodeImage(const char* filename, int width, int height);
 	~UnicodeImage();
 
@@ -27,7 +28,7 @@ public:
 	int GetWidth() { return this->width; }
 	int GetHeight() { return this->height; }
 
-	char GetPixel(int x, int y) { return this->image[y * this->width + x]; }
+	TCHAR GetPixel(int x, int y) { return this->image[y * this->width + x]; }
 	bool GetMask(int x, int y) { return this->mask[y * this->width + x]; }
 };
 //

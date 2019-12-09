@@ -12,11 +12,11 @@ private:
 	int height;
 
 	RenderBuffer* buffer;
-	UnicodeImage* image;// ("people.jpg", 192, 128, 12, 8);
-	Sprite* tile;
-	TiledSprite* animation;
 
-	int direction;
+	UnicodeImage* people;
+	UnicodeImage* tileSet;
+
+	float dir;
 	float anim;
 
 	bool exit;

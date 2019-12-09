@@ -16,7 +16,7 @@ private:
 public:
 	struct ImageData
 	{
-		const char *image;
+		const TCHAR *image;
 		const bool *mask;
 		int imageWidth;
 		int imageHeight;
