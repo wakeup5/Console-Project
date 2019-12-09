@@ -13,10 +13,11 @@ int main()
     CONSOLE_FONT_INFOEX cfi;
     cfi.cbSize = sizeof(cfi);
     cfi.nFont = 0;
-    cfi.dwFontSize.X = 5;
-    cfi.dwFontSize.Y = 4;
+    cfi.dwFontSize.X = 2;
+    cfi.dwFontSize.Y = 2;
     cfi.FontFamily = FF_DONTCARE;
     cfi.FontWeight = FW_NORMAL;
+    wcscpy_s(cfi.FaceName, TEXT("Raster Fonts"));
     if (!SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi)) {
         std::cout << "SetCurrentConsoleFontEx failed with error " << GetLastError() << std::endl;
         return -1;
@@ -29,7 +30,7 @@ int main()
         return -1;
     }
 
-    if (!SetConsoleTitle(L"Console Project"))
+    if (!SetConsoleTitle(TEXT("Console Project")))
     {
         std::cout << "SetConsoleTitle failed with error " << GetLastError() << std::endl;
         return -1;
