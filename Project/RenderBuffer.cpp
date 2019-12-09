@@ -35,7 +35,11 @@ void RenderBuffer::Draw(const ImageData& data, const POINT& leftTop)
 			int sIndex = y * width + x;
 			int dIndex = dy * this->width + dx;
 
-			buffer[dIndex].Char.UnicodeChar = data.Data[sIndex];
+			if (!data.mask[sIndex]) {
+				continue;
+			}
+
+			buffer[dIndex].Char.UnicodeChar = data.image[sIndex];
 		}
 	}
 
@@ -62,8 +66,12 @@ void RenderBuffer::Draw(const ImageData& data, const POINT& leftTop, const RECT&
 
 			int sIndex = sy * data.imageWidth + sx;
 			int dIndex = dy * this->width + dx;
+			
+			if (!data.mask[sIndex]) {
+				continue;
+			}
 
-			buffer[dIndex].Char.UnicodeChar = data.Data[sIndex];
+			buffer[dIndex].Char.UnicodeChar = data.image[sIndex];
 		}
 	}
 

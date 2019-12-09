@@ -16,7 +16,8 @@ private:
 public:
 	struct ImageData
 	{
-		char const* Data;
+		const char *image;
+		const bool *mask;
 		int imageWidth;
 		int imageHeight;
 	};
@@ -32,7 +33,5 @@ public:
 	void Draw(const ImageData& data, const POINT& leftTop, const RECT& imageRect);
 	void Clear(char c);
 	void Render();
-
-	
 };
 

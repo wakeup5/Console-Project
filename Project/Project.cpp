@@ -2,8 +2,7 @@
 //
 
 #include <iostream>
-#include "RenderBuffer.h"
-#include "UnicodeImage.h"
+#include "GameEngine.h"
 
 #define SCREEN_WIDTH 200
 #define SCREEN_HEIGHT 200
@@ -36,17 +35,23 @@ int main()
         return -1;
     }
 
-    UnicodeSprite sprite("a.jpg", 100, 100, 4, 4);
-    RenderBuffer buffer(SCREEN_WIDTH, SCREEN_HEIGHT);
+    GameEngine game(SCREEN_WIDTH, SCREEN_HEIGHT);
+    int targetFPS = 40;
 
-    int i = -1;
-    while (i++ < 100) {
-        buffer.Clear('=');
-        sprite.DrawTo(&buffer, { 10 + i, 10 + i }, i % 4, (i / 4) % 4);
+    while (true) {
+        game.Update(1.0f / targetFPS);
+        game.Render();
 
-        buffer.Render();
-        Sleep(500);
+        Sleep(1000 / targetFPS);
+
+        if (game.IsExit()) {
+            break;
+        }
     }
+    
+    game.Release();
+
+    return 0;
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴

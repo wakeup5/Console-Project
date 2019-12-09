@@ -1,8 +1,8 @@
 ﻿#include "UnicodeImage.h"
 
-const char map[11] = " .,:;ox%#@";
+const char map[70] = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. ";// " .:-=+*#%@"; //" .,:;ox%#@";
 
-UnicodeImage::UnicodeImage(const char* const filename, int width, int height)
+UnicodeImage::UnicodeImage(const char* filename, int width, int height)
 	:width(width)
 	,height(height)
 	,image(NULL)
@@ -16,11 +16,13 @@ UnicodeImage::UnicodeImage(const char* const filename, int width, int height)
     * in order to be able to read JPG images.
     * var(size_x, size_y, size_z, dv, default_fill)
     */
-    CImg<unsigned char> temp(filename),
+    CImg<int> temp(filename),
         grayWeight(width, height, 1, 1, 0),
         imgR(width, height, 1, 3, 0),
         imgG(width, height, 1, 3, 0),
         imgB(width, height, 1, 3, 0);
+
+    CImg<int> mask(width, height, 1, 1, 0);
 
     temp.resize(width, height);
 
@@ -30,33 +32,28 @@ UnicodeImage::UnicodeImage(const char* const filename, int width, int height)
         imgG(x, y, 0, 1) = temp(x, y, 0, 1),    // Green component of image sent to imgG
         imgB(x, y, 0, 2) = temp(x, y, 0, 2);    // Blue component of image sent to imgB
 
-        // want to print out the RGB value of each pixel? Uncomment the following:
-        /*
-        * cout << image.width() << "x" << image.height() << endl;
-        * cout << "(" << x << "," << y << ") ="
-        *             << " R:" << (int)image(x,y,0,0)
-        *             << " G:" << (int)image(x,y,0,1)
-        *             << " B:" << (int)image(x,y,0,2) << endl;
-        */
-
         // Separation of channels
         int R = (int)temp(x, y, 0, 0);
         int G = (int)temp(x, y, 0, 1);
         int B = (int)temp(x, y, 0, 2);
+
         // Real weighted addition of channels for gray
         int grayValueWeight = (int)(0.299 * R + 0.587 * G + 0.114 * B);
+
         // saving píxel values into image information
-        //gray(x, y, 0, 0) = grayValue;
         grayWeight(x, y, 0, 0) = grayValueWeight;
+        mask(x, y, 0, 0) = (R == 255 && G == 0 && B == 255) ? 0 : 1;
     }
 
 	this->image = new char[width * height];
+    this->mask = new bool[width * height];
     
 	for (int h = 0; h < height; h++) {
 		for (int w = 0; w < width; w++) {
             unsigned char v = grayWeight(w, h, 0, 0);
 
-            this->image[h * width + w] = map[(255 - v) * 10 / 256];
+            this->image[h * width + w] = map[(v) * 70 / 256];
+            this->mask[h * width + w] = mask(w, h, 0, 0) == 1;
 		}
 	}
 }
@@ -70,7 +67,8 @@ UnicodeImage::~UnicodeImage()
 void UnicodeImage::DrawTo(RenderBuffer* buffer, const POINT& pos)
 {
     RenderBuffer::ImageData data;
-    data.Data = image;
+    data.image = image;
+    data.mask = mask;
     data.imageWidth = this->width;
     data.imageHeight = this->height;
 
@@ -80,31 +78,32 @@ void UnicodeImage::DrawTo(RenderBuffer* buffer, const POINT& pos)
 void UnicodeImage::DrawTo(RenderBuffer* buffer, const POINT& pos, const RECT& imageRect)
 {
     RenderBuffer::ImageData data;
-    data.Data = image;
+    data.image = image;
+    data.mask = mask;
     data.imageWidth = this->width;
     data.imageHeight = this->height;
 
     buffer->Draw(data, pos, imageRect);
 }
 
-UnicodeSprite::UnicodeSprite(const char* const filename, int width, int height, int col, int row) 
-    : UnicodeImage(filename, width, height)
-{
-    this->col = col;
-    this->row = row;
-
-    this->cellWidth = floor(width / col);
-    this->cellHeight = floor(height / row);
-}
-
-void UnicodeSprite::DrawTo(RenderBuffer* buffer, const POINT& pos, int colNum, int rowNum)
-{
-    RECT rect = {
-        colNum * this->cellWidth,
-        rowNum * this->cellHeight,
-        (colNum + 1) * this->cellWidth,
-        (rowNum + 1) * this->cellHeight
-    };
-
-    UnicodeImage::DrawTo(buffer, pos, rect);
-}
+//UnicodeSprite::UnicodeSprite(const char* const filename, int width, int height, int col, int row) 
+//    : UnicodeImage(filename, width, height)
+//{
+//    this->col = col;
+//    this->row = row;
+//
+//    this->cellWidth = floor(width / col);
+//    this->cellHeight = floor(height / row);
+//}
+//
+//void UnicodeSprite::DrawTo(RenderBuffer* buffer, const POINT& pos, int colNum, int rowNum)
+//{
+//    RECT rect = {
+//        colNum * this->cellWidth,
+//        rowNum * this->cellHeight,
+//        (colNum + 1) * this->cellWidth,
+//        (rowNum + 1) * this->cellHeight
+//    };
+//
+//    UnicodeImage::DrawTo(buffer, pos, rect);
+//}
