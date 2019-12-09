@@ -86,3 +86,25 @@ void UnicodeImage::DrawTo(RenderBuffer* buffer, const POINT& pos, const RECT& im
 
     buffer->Draw(data, pos, imageRect);
 }
+
+UnicodeSprite::UnicodeSprite(const char* const filename, int width, int height, int col, int row) 
+    : UnicodeImage(filename, width, height)
+{
+    this->col = col;
+    this->row = row;
+
+    this->cellWidth = floor(width / col);
+    this->cellHeight = floor(height / row);
+}
+
+void UnicodeSprite::DrawTo(RenderBuffer* buffer, const POINT& pos, int colNum, int rowNum)
+{
+    RECT rect = {
+        colNum * this->cellWidth,
+        rowNum * this->cellHeight,
+        (colNum + 1) * this->cellWidth,
+        (rowNum + 1) * this->cellHeight
+    };
+
+    UnicodeImage::DrawTo(buffer, pos, rect);
+}

@@ -49,8 +49,8 @@ void RenderBuffer::Draw(const ImageData& data, const POINT& leftTop, const RECT&
 	const int width = min(data.imageWidth, imageRect.right) - imageRect.left;
 	const int height = min(data.imageHeight, imageRect.bottom) - imageRect.top;
 
-	for (int y = imageRect.top; y < height; y++) {
-		for (int x = imageRect.top; x < width; x++) {
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
 			int sx = x + imageRect.left;
 			int sy = y + imageRect.top;
 			int dx = x + left;

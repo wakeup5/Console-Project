@@ -23,3 +23,17 @@ public:
 	void DrawTo(RenderBuffer* buffer, const POINT& pos, const RECT& imageRect);
 };
 
+class UnicodeSprite : UnicodeImage
+{
+private:
+	int col;
+	int row;
+	int cellWidth;
+	int cellHeight;
+
+public:
+	UnicodeSprite(const char* const filename, int width, int height, int col, int row);
+
+	void DrawTo(RenderBuffer* buffer, const POINT& pos, int colNum, int rowNum);
+};
+

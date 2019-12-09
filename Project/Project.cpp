@@ -36,16 +36,16 @@ int main()
         return -1;
     }
 
-    UnicodeImage image("a.jpg", 100, 100);
+    UnicodeSprite sprite("a.jpg", 100, 100, 4, 4);
     RenderBuffer buffer(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     int i = -1;
     while (i++ < 100) {
         buffer.Clear('=');
-        image.DrawTo(&buffer, { 10 + i, 10 + i });
+        sprite.DrawTo(&buffer, { 10 + i, 10 + i }, i % 4, (i / 4) % 4);
 
         buffer.Render();
-        Sleep(25);
+        Sleep(500);
     }
 }
 
