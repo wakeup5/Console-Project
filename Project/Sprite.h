@@ -3,16 +3,17 @@
 #include <Windows.h>
 
 #include "RenderBuffer.h"
-#include "UnicodeImage.h"
+#include "Image.h"
 
 class Sprite
 {
 private:
-	UnicodeImage* image;
+	Image* image;
 	RECT rect;
 
 public:
-	Sprite(UnicodeImage* image, const RECT& rect);
+	Sprite(Image* image);
+	Sprite(Image* image, const RECT& rect);
 	void DrawTo(RenderBuffer* buffer, const POINT& pos);
 };
 

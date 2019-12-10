@@ -1,6 +1,17 @@
 #include "Sprite.h"
 
-Sprite::Sprite(UnicodeImage* image, const RECT& rect) 
+Sprite::Sprite(Image* image)
+	:image(image)
+{
+	this->rect = RECT{
+		0,
+		0,
+		image->GetWidth(),
+		image->GetHeight()
+	};
+}
+
+Sprite::Sprite(Image* image, const RECT& rect)
 	:image(image)
 	,rect(rect)
 {
@@ -8,5 +19,26 @@ Sprite::Sprite(UnicodeImage* image, const RECT& rect)
 
 void Sprite::DrawTo(RenderBuffer* buffer, const POINT& pos)
 {
-	image->DrawTo(buffer, pos, this->rect);
+	buffer->Draw(this->image, pos);
 }
+//void Image::DrawTo(RenderBuffer* buffer, const POINT& pos)
+//{
+//    RenderBuffer::ImageData data;
+//    data.image = image;
+//    data.mask = mask;
+//    data.imageWidth = this->width;
+//    data.imageHeight = this->height;
+//
+//    buffer->Draw(data, pos);
+//}
+//
+//void Image::DrawTo(RenderBuffer* buffer, const POINT& pos, const RECT& imageRect)
+//{
+//    RenderBuffer::ImageData data;
+//    data.image = image;
+//    data.mask = mask;
+//    data.imageWidth = this->width;
+//    data.imageHeight = this->height;
+//
+//    buffer->Draw(data, pos, imageRect);
+//}

@@ -7,8 +7,8 @@ GameEngine::GameEngine(int width, int height)
 	
 	this->buffer = new RenderBuffer(width, height);
 
-	this->people = new UnicodeImage("people.bmp");
-	this->tileSet = new UnicodeImage("Tileset.bmp");
+	this->people = Image::LoadBmp("people.bmp");
+	this->tileSet = Image::LoadBmp("Tileset.bmp");
 
 	this->dir = 0;
 	this->anim = 0.0f;

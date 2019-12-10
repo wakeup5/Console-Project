@@ -1,6 +1,6 @@
 #include "TiledSprite.h"
 
-TiledSprite::TiledSprite(UnicodeImage* image, int col, int row)
+TiledSprite::TiledSprite(Image* image, int col, int row)
 	:image(image)
 	,col(col)
 	,row(row)
@@ -18,5 +18,5 @@ void TiledSprite::DrawTo(RenderBuffer* buffer, const POINT& pos, int colNum, int
 		(rowNum + 1) * this->cellHeight
 	};
 
-	image->DrawTo(buffer, pos, rect);
+	buffer->Draw(this->image, pos, rect);
 }

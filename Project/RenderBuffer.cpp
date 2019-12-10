@@ -16,12 +16,12 @@ RenderBuffer::~RenderBuffer()
 	this->buffer = NULL;
 }
 
-void RenderBuffer::Draw(const ImageData& data, const POINT& leftTop)
+void RenderBuffer::Draw(Image* data, const POINT& leftTop)
 {
 	const int left = leftTop.x;
 	const int top = leftTop.y;
-	const int width = data.imageWidth;
-	const int height = data.imageHeight;
+	const int width = data->GetWidth();
+	const int height = data->GetHeight();
 
 	for (int y = 0; y < height; y++) {
 		for (int x = 0; x < width; x++) {
@@ -32,26 +32,26 @@ void RenderBuffer::Draw(const ImageData& data, const POINT& leftTop)
 				continue;
 			}
 
-			int sIndex = y * width + x;
+			//int sIndex = y * width + x;
 			int dIndex = dy * this->width + dx;
 
-			if (!data.mask[sIndex]) {
+			if (!data->GetMask(x, y)) {
 				continue;
 			}
 
-			buffer[dIndex].Char.UnicodeChar = data.image[sIndex];
+			buffer[dIndex].Char.UnicodeChar = data->GetPixel(x, y);
 		}
 	}
 
 	hasChanges = true;
 }
 
-void RenderBuffer::Draw(const ImageData& data, const POINT& leftTop, const RECT& imageRect)
+void RenderBuffer::Draw(Image* data, const POINT& leftTop, const RECT& imageRect)
 {
 	const int left = leftTop.x;
 	const int top = leftTop.y;
-	const int width = min(data.imageWidth, imageRect.right) - imageRect.left;
-	const int height = min(data.imageHeight, imageRect.bottom) - imageRect.top;
+	const int width = min(data->GetWidth(), imageRect.right) - imageRect.left;
+	const int height = min(data->GetHeight(), imageRect.bottom) - imageRect.top;
 
 	for (int y = 0; y < height; y++) {
 		for (int x = 0; x < width; x++) {
@@ -64,14 +64,14 @@ void RenderBuffer::Draw(const ImageData& data, const POINT& leftTop, const RECT&
 				continue;
 			}
 
-			int sIndex = sy * data.imageWidth + sx;
+			//int sIndex = sy * data.imageWidth + sx;
 			int dIndex = dy * this->width + dx;
 			
-			if (!data.mask[sIndex]) {
+			if (!data->GetMask(sx, sy)) {
 				continue;
 			}
 
-			buffer[dIndex].Char.UnicodeChar = data.image[sIndex];
+			buffer[dIndex].Char.UnicodeChar = data->GetPixel(sx, sy);
 		}
 	}
 

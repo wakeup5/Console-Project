@@ -1,7 +1,7 @@
 #pragma once
 
 #include "RenderBuffer.h"
-#include "UnicodeImage.h"
+#include "Image.h"
 #include "Sprite.h"
 #include "TiledSprite.h"
 
@@ -13,8 +13,8 @@ private:
 
 	RenderBuffer* buffer;
 
-	UnicodeImage* people;
-	UnicodeImage* tileSet;
+	Image* people;
+	Image* tileSet;
 
 	float dir;
 	float anim;

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string.h>
 
+#include "Image.h"
+
 class RenderBuffer
 {
 private:
@@ -14,14 +16,6 @@ private:
 	bool hasChanges;
 
 public:
-	struct ImageData
-	{
-		const TCHAR *image;
-		const bool *mask;
-		int imageWidth;
-		int imageHeight;
-	};
-
 	RenderBuffer(int width, int height);
 	~RenderBuffer();
 
@@ -29,8 +23,8 @@ public:
 		return hasChanges;
 	}
 
-	void Draw(const ImageData& data, const POINT& leftTop);
-	void Draw(const ImageData& data, const POINT& leftTop, const RECT& imageRect);
+	void Draw(Image* data, const POINT& leftTop);
+	void Draw(Image* data, const POINT& leftTop, const RECT& imageRect);
 	void Clear(char c);
 	void Render();
 };

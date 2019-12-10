@@ -156,14 +156,14 @@
     <ClCompile Include="RenderBuffer.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TiledSprite.cpp" />
-    <ClCompile Include="UnicodeImage.cpp" />
+    <ClCompile Include="Image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="RenderBuffer.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TiledSprite.h" />
-    <ClInclude Include="UnicodeImage.h" />
+    <ClInclude Include="Image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
