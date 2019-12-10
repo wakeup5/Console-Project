@@ -82,7 +82,7 @@ void GameEngine::Render()
 	animation.DrawTo(buffer, pos, col, d);
 
 	buffer->Rectangle('@', { 0, 0, 200, 32 });
-	this->text->DrawTo(buffer, { 0, 0, 200, 24 }, TEXT("안녕하세요. Waker입니다. ㄱㄱ"));
+	this->text->DrawTo(buffer, { 0, 0, 200, 24 }, TEXT("안녕하세요. Waker입니다. 가나다라마바사~"));
 
 	buffer->Render();
 }

@@ -23,7 +23,7 @@ int main()
         return -1;
     }
 
-    SMALL_RECT windowSize = { 0, 0, 210, 210 };
+    SMALL_RECT windowSize = { 0, 0, 208, 208 };
     if (!SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize))
     {
         std::cout << "SetConsoleWindowInfo failed with error " << GetLastError() << std::endl;
