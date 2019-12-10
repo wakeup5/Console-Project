@@ -19,7 +19,7 @@ Sprite::Sprite(Image* image, const RECT& rect)
 
 void Sprite::DrawTo(RenderBuffer* buffer, const POINT& pos)
 {
-	buffer->Draw(this->image, pos);
+	buffer->Draw(this->image, pos, rect);
 }
 //void Image::DrawTo(RenderBuffer* buffer, const POINT& pos)
 //{

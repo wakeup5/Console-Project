@@ -4,6 +4,7 @@
 #include "Image.h"
 #include "Sprite.h"
 #include "TiledSprite.h"
+#include "Text.h"
 
 class GameEngine
 {
@@ -12,6 +13,8 @@ private:
 	int height;
 
 	RenderBuffer* buffer;
+
+	Text* text;
 
 	Image* people;
 	Image* tileSet;

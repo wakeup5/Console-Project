@@ -78,7 +78,7 @@ void RenderBuffer::Draw(Image* data, const POINT& leftTop, const RECT& imageRect
 	hasChanges = true;
 }
 
-void RenderBuffer::Clear(char c)
+void RenderBuffer::Clear(TCHAR c)
 {
 	for (int i = 0; i < this->width * height; i++) {
 		this->buffer[i].Char.UnicodeChar = c;
@@ -86,6 +86,21 @@ void RenderBuffer::Clear(char c)
 	}
 
 	hasChanges = true;
+}
+
+void RenderBuffer::Rectangle(TCHAR c, const RECT& rect)
+{
+	int l = max(0, rect.left);
+	int t = max(0, rect.top);
+	int r = min(this->width, rect.right);
+	int b = min(this->height, rect.bottom);
+
+	for (int x = l; x < r; x++) {
+		for (int y = t; y < b; y++) {
+			this->buffer[y * this->width + x].Char.UnicodeChar = c;
+		}
+	}
+
 }
 
 void RenderBuffer::Render()

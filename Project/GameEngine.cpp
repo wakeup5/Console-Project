@@ -7,6 +7,8 @@ GameEngine::GameEngine(int width, int height)
 	
 	this->buffer = new RenderBuffer(width, height);
 
+	this->text = new Text();
+
 	this->people = Image::LoadBmp("people.bmp");
 	this->tileSet = Image::LoadBmp("Tileset.bmp");
 
@@ -16,9 +18,12 @@ GameEngine::GameEngine(int width, int height)
 
 void GameEngine::Release()
 {
+	delete buffer;
+
 	delete people;
 	delete tileSet;
-	delete buffer;
+
+	delete text;
 }
 
 void GameEngine::Update(float deltaTime)
@@ -29,7 +34,7 @@ void GameEngine::Update(float deltaTime)
 
 void GameEngine::Render()
 {
-	buffer->Clear('@');
+	buffer->Clear(TEXT('@'));
 
 	int col = 0;
 	switch ((int)round(anim) % 4) {
@@ -75,6 +80,9 @@ void GameEngine::Render()
 
 	TiledSprite animation(this->people, 12, 8);
 	animation.DrawTo(buffer, pos, col, d);
+
+	buffer->Rectangle('@', { 0, 0, 200, 32 });
+	this->text->DrawTo(buffer, { 0, 0, 200, 24 }, TEXT("안녕하세요. Waker입니다. ㄱㄱ"));
 
 	buffer->Render();
 }

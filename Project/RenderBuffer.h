@@ -1,8 +1,6 @@
 #pragma once
 
 #include <windows.h>
-#include <iostream>
-#include <string.h>
 
 #include "Image.h"
 
@@ -25,7 +23,8 @@ public:
 
 	void Draw(Image* data, const POINT& leftTop);
 	void Draw(Image* data, const POINT& leftTop, const RECT& imageRect);
-	void Clear(char c);
+	void Clear(TCHAR c);
+	void Rectangle(TCHAR c, const RECT& rect);
 	void Render();
 };
 

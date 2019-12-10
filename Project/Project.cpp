@@ -4,8 +4,8 @@
 #include <iostream>
 #include "GameEngine.h"
 
-#define SCREEN_WIDTH 200
-#define SCREEN_HEIGHT 200
+#define SCREEN_WIDTH 208
+#define SCREEN_HEIGHT 208
 //#define SCREEN_RATE 0.625f // (5 / 8)
 
 int main()
@@ -23,7 +23,7 @@ int main()
         return -1;
     }
 
-    SMALL_RECT windowSize = { 0, 0, 230, 230 };
+    SMALL_RECT windowSize = { 0, 0, 210, 210 };
     if (!SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize))
     {
         std::cout << "SetConsoleWindowInfo failed with error " << GetLastError() << std::endl;
