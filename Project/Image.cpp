@@ -43,10 +43,10 @@ Image* Image::LoadBmp(const char* filename)
     // for all pixels x,y in image
     cimg_forXY(temp, x, y) {
         imgR(x, y, 0, 0) = temp(x, y, 0, 0),    // Red component of image sent to imgR
-            imgG(x, y, 0, 1) = temp(x, y, 0, 1),    // Green component of image sent to imgG
-            imgB(x, y, 0, 2) = temp(x, y, 0, 2);    // Blue component of image sent to imgB
+        imgG(x, y, 0, 1) = temp(x, y, 0, 1),    // Green component of image sent to imgG
+        imgB(x, y, 0, 2) = temp(x, y, 0, 2);    // Blue component of image sent to imgB
 
-            // Separation of channels
+        // Separation of channels
         int R = (int)temp(x, y, 0, 0);
         int G = (int)temp(x, y, 0, 1);
         int B = (int)temp(x, y, 0, 2);

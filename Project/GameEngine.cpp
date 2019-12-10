@@ -65,16 +65,16 @@ void GameEngine::Render()
 
 	POINT pos = { x - 8, y - 8 };
 
-	TiledSprite animation(this->people, 12, 8);
-	animation.DrawTo(buffer, pos, col, d);
-
 	TiledSprite tiles(this->tileSet, 8, 16);
 
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			tiles.DrawTo(buffer, { i * 16, j * 16 }, j, i);
+	for (int i = 0; i < 15; i++) {
+		for (int j = 0; j < 15; j++) {
+			tiles.DrawTo(buffer, { i * 16, j * 16 }, j % 3, i % 3);
 		}
 	}
+
+	TiledSprite animation(this->people, 12, 8);
+	animation.DrawTo(buffer, pos, col, d);
 
 	buffer->Render();
 }

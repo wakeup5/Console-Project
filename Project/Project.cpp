@@ -37,17 +37,27 @@ int main()
     }
 
     GameEngine game(SCREEN_WIDTH, SCREEN_HEIGHT);
-    int targetFPS = 40;
+    int targetFPS = 25;
+    int targetFrameMS = 1000 / targetFPS;
+
+    ULONGLONG lastTime = GetTickCount64();
 
     while (true) {
-        game.Update(1.0f / targetFPS);
-        game.Render();
+        ULONGLONG current = GetTickCount64();
+        ULONGLONG elapsed = current - lastTime;
 
-        Sleep(1000 / targetFPS);
-
+        game.Update(elapsed / 1000.f);
+        
         if (game.IsExit()) {
             break;
         }
+        
+        game.Render();
+
+        if (targetFrameMS > elapsed) {
+            Sleep(targetFrameMS - elapsed);
+        }
+        lastTime = current;
     }
     
     game.Release();
