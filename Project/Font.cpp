@@ -1,4 +1,4 @@
-#include "Text.h"
+#include "Font.h"
 
 //// 초성 리스트. 00 ~18
 //TCHAR ChosungList[] = { 
@@ -14,7 +14,7 @@
 //	'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ',
 //	'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ' };
 
-Text::Text()
+Font::Font()
 {
 	// 하드코딩 나가신다
 	this->asciiImage = Image::LoadBmp("Ascii.bmp");
@@ -24,13 +24,13 @@ Text::Text()
 	this->koreanSprite = new TiledSprite(this->koreanImage, 10, 10);
 }
 
-Text::~Text()
+Font::~Font()
 {
 	delete this->asciiImage;
 	delete this->asciiSprite;
 }
 
-void Text::DrawTo(RenderBuffer* buffer, const RECT& rect, const TCHAR* text)
+void Font::DrawTo(RenderBuffer* buffer, const RECT& rect, const TCHAR* text)
 {
 	int x = rect.left;
 	int y = rect.top;

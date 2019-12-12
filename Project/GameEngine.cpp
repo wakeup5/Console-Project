@@ -7,13 +7,15 @@ GameEngine::GameEngine(int width, int height)
 	
 	this->buffer = new RenderBuffer(width, height);
 
-	this->text = new Text();
+	this->font = new Font();
 
 	this->people = Image::LoadBmp("people.bmp");
 	this->tileSet = Image::LoadBmp("Tileset.bmp");
 
 	this->dir = 0;
 	this->anim = 0.0f;
+
+	this->pos = { width / 2, height / 2 };
 }
 
 void GameEngine::Release()
@@ -23,12 +25,22 @@ void GameEngine::Release()
 	delete people;
 	delete tileSet;
 
-	delete text;
+	delete font;
 }
 
 void GameEngine::Update(float deltaTime)
 {
-	dir += deltaTime * 2.f;
+	Input::BeginUpdate();
+
+	if (Input::IsKeyDownOnce(VK_LEFT)) {
+		this->dir = 1;
+		this->pos.x -= 16;
+	}
+	else if (Input::IsKeyDownOnce(VK_RIGHT)) {
+		this->dir = 2;
+		this->pos.x += 16;
+	}
+
 	anim += deltaTime * 6.f;
 }
 
@@ -50,25 +62,6 @@ void GameEngine::Render()
 		break;
 	}
 
-	int x = (width / 2) + (cos(dir) * 40);
-	int y = (height / 2) + (sin(dir) * 40);
-
-	float angle = atan2(y, x);
-	int d = 0;
-	if (angle > 0.125f && angle <= 0.375f) {
-		d = 0;
-	}
-	else if (angle > 0.375f && angle <= 0.625f) {
-		d = 1;
-	}
-	else if (angle > 0.625f && angle <= 0.875f) {
-		d = 2;
-	}
-	else {
-		d = 3;
-	}
-
-	POINT pos = { x - 8, y - 8 };
 
 	TiledSprite tiles(this->tileSet, 8, 16);
 
@@ -79,10 +72,10 @@ void GameEngine::Render()
 	}
 
 	TiledSprite animation(this->people, 12, 8);
-	animation.DrawTo(buffer, pos, col, d);
+	animation.DrawTo(buffer, pos, col, dir);
 
 	buffer->Rectangle('@', { 0, 0, 200, 32 });
-	this->text->DrawTo(buffer, { 0, 0, 200, 24 }, TEXT("안녕하세요. Waker입니다. 가나다라마바사~"));
+	this->font->DrawTo(buffer, { 0, 0, 200, 24 }, TEXT("안녕하세요. Waker입니다. 가나다라마바사~"));
 
 	buffer->Render();
 }

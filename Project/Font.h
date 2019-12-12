@@ -4,7 +4,7 @@
 #include "Image.h"
 #include "TiledSprite.h"
 
-class Text
+class Font
 {
 private:
 	Image* asciiImage;
@@ -14,8 +14,8 @@ private:
 	TiledSprite* koreanSprite;
 
 public:
-	Text();
-	~Text();
+	Font();
+	~Font();
 
 	void DrawTo(RenderBuffer* buffer, const RECT& rect, const TCHAR* text);
 };
