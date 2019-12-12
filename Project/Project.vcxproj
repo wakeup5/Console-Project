@@ -161,6 +161,7 @@
     <ClCompile Include="Image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CImg.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="RenderBuffer.h" />
