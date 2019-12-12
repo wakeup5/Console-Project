@@ -33,7 +33,10 @@
     <ClCompile Include="Image.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Text.cpp">
+    <ClCompile Include="Input.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +56,10 @@
     <ClInclude Include="Image.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
+    <ClInclude Include="Input.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

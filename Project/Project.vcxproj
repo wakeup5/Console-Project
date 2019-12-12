@@ -152,18 +152,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="RenderBuffer.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="TiledSprite.cpp" />
     <ClCompile Include="Image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="RenderBuffer.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Text.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="TiledSprite.h" />
     <ClInclude Include="Image.h" />
   </ItemGroup>
