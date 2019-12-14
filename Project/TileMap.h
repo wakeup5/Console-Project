@@ -31,6 +31,9 @@ public:
 	TileMap(const char* jsonfile, const TiledSprite& tileset);
 	~TileMap();
 
+	inline int GetColumn() { return this->col; }
+	inline int GetRow() { return this->row; }
+
 	void DrawTo(RenderBuffer* buffer, const POINT& pos);
 };
 
