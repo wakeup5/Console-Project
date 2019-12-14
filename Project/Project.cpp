@@ -2,40 +2,24 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "GameEngine.h"
+#include "Log.h"
+#include "json.hpp"
 
 #define SCREEN_WIDTH 208
 #define SCREEN_HEIGHT 208
 //#define SCREEN_RATE 0.625f // (5 / 8)
 
+bool Initialize();
+
 int main()
 {
-    CONSOLE_FONT_INFOEX cfi;
-    cfi.cbSize = sizeof(cfi);
-    cfi.nFont = 0;
-    cfi.dwFontSize.X = 2;
-    cfi.dwFontSize.Y = 2;
-    cfi.FontFamily = FF_DONTCARE;
-    cfi.FontWeight = FW_NORMAL;
-    wcscpy_s(cfi.FaceName, TEXT("Raster Fonts"));
-    if (!SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi)) {
-        std::cout << "SetCurrentConsoleFontEx failed with error " << GetLastError() << std::endl;
+    if (!Initialize()) {
         return -1;
     }
-
-    SMALL_RECT windowSize = { 0, 0, 208, 208 };
-    if (!SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize))
-    {
-        std::cout << "SetConsoleWindowInfo failed with error " << GetLastError() << std::endl;
-        return -1;
-    }
-
-    if (!SetConsoleTitle(TEXT("Console Project")))
-    {
-        std::cout << "SetConsoleTitle failed with error " << GetLastError() << std::endl;
-        return -1;
-    }
-
+    
     GameEngine game(SCREEN_WIDTH, SCREEN_HEIGHT);
     int targetFPS = 25;
     int targetFrameMS = 1000 / targetFPS;
@@ -63,6 +47,35 @@ int main()
     game.Release();
 
     return 0;
+}
+
+bool Initialize()
+{
+    CONSOLE_FONT_INFOEX cfi;
+    cfi.cbSize = sizeof(cfi);
+    cfi.nFont = 0;
+    cfi.dwFontSize.X = 2;
+    cfi.dwFontSize.Y = 2;
+    cfi.FontFamily = FF_DONTCARE;
+    cfi.FontWeight = FW_NORMAL;
+    wcscpy_s(cfi.FaceName, TEXT("Raster Fonts"));
+    if (!SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi)) {
+        std::cout << "SetCurrentConsoleFontEx failed with error " << GetLastError() << std::endl;
+        return false;
+    }
+
+    SMALL_RECT windowSize = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    if (!SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize))
+    {
+        std::cout << "SetConsoleWindowInfo failed with error " << GetLastError() << std::endl;
+        return false;
+    }
+
+    if (!SetConsoleTitle(TEXT("Console Project")))
+    {
+        std::cout << "SetConsoleTitle failed with error " << GetLastError() << std::endl;
+        return false;
+    }
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
