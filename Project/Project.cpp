@@ -21,7 +21,7 @@ int main()
     }
     
     GameEngine game(SCREEN_WIDTH, SCREEN_HEIGHT);
-    int targetFPS = 25;
+    int targetFPS = 50;
     int targetFrameMS = 1000 / targetFPS;
 
     ULONGLONG lastTime = GetTickCount64();
@@ -42,6 +42,8 @@ int main()
             Sleep(targetFrameMS - elapsed);
         }
         lastTime = current;
+
+        LogToOutputA("%d\n", elapsed);
     }
     
     game.Release();

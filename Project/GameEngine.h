@@ -27,7 +27,8 @@ private:
 	float dir;
 	float anim;
 
-	POINT pos;
+	float posX;
+	float posY;
 
 	bool exit;
 public:
