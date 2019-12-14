@@ -17,10 +17,10 @@
 Font::Font()
 {
 	// 하드코딩 나가신다
-	this->asciiImage = Image::LoadBmp("Ascii.bmp");
+	this->asciiImage = Image::LoadBmp("Resources/Images/Ascii.bmp");
 	this->asciiSprite = new TiledSprite(this->asciiImage, 20, 5);
 
-	this->koreanImage = Image::LoadBmp("Kor.bmp");
+	this->koreanImage = Image::LoadBmp("Resources/Images/Kor.bmp");
 	this->koreanSprite = new TiledSprite(this->koreanImage, 10, 10);
 }
 
@@ -115,8 +115,4 @@ void Font::DrawTo(RenderBuffer* buffer, const RECT& rect, const TCHAR* text)
 			x += 8;
 		}
 	}
-
-	TCHAR szBuff[1024];
-	_snwprintf_s(szBuff, sizeof(szBuff), text);
-	OutputDebugString(szBuff);
 }
