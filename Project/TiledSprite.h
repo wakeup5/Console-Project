@@ -16,6 +16,7 @@ private:
 	int cellHeight;
 
 public:
+	TiledSprite();
 	TiledSprite(Image* image, int col, int row);
 	void DrawTo(RenderBuffer* buffer, const POINT& pos, int colNum, int rowNum);
 
