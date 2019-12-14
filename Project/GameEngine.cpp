@@ -4,18 +4,21 @@ GameEngine::GameEngine(int width, int height)
 {
 	this->width = width;
 	this->height = height;
-	
+
 	this->buffer = new RenderBuffer(width, height);
 
 	this->font = new Font();
 
-	this->people = Image::LoadBmp("people.bmp");
-	this->tileSet = Image::LoadBmp("Tileset.bmp");
+	this->people = Image::LoadBmp("Resources/Images/people.bmp");
+	this->tileSet = Image::LoadBmp("Resources/Images/Tileset.bmp");
 
 	this->dir = 0;
 	this->anim = 0.0f;
 
 	this->pos = { width / 2, height / 2 };
+
+	TiledSprite t(this->tileSet, 10, 10);
+	this->tilemap = TileMap("Resources/Maps/Map1.json", t);
 }
 
 void GameEngine::Release()
@@ -48,6 +51,8 @@ void GameEngine::Render()
 {
 	buffer->Clear(TEXT('@'));
 
+	this->tilemap.DrawTo(buffer, { -160, -160 });
+
 	int col = 0;
 	switch ((int)round(anim) % 4) {
 	case 0:
@@ -60,15 +65,6 @@ void GameEngine::Render()
 	case 3:
 		col = 2;
 		break;
-	}
-
-
-	TiledSprite tiles(this->tileSet, 8, 16);
-
-	for (int i = 0; i < 15; i++) {
-		for (int j = 0; j < 15; j++) {
-			tiles.DrawTo(buffer, { i * 16, j * 16 }, j % 3, i % 3);
-		}
 	}
 
 	TiledSprite animation(this->people, 12, 8);

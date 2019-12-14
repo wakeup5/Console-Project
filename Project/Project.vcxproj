@@ -153,17 +153,22 @@
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="TiledSprite.cpp" />
+    <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="RenderBuffer.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Font.cpp" />
-    <ClCompile Include="TiledSprite.cpp" />
     <ClCompile Include="Image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CImg.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="TileMap.h" />
     <ClInclude Include="RenderBuffer.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Font.h" />

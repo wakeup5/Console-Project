@@ -6,6 +6,8 @@
 #include "TiledSprite.h"
 #include "Font.h"
 #include "Input.h"
+#include "Log.h"
+#include "TileMap.h"
 
 class GameEngine
 {
@@ -19,6 +21,8 @@ private:
 
 	Image* people;
 	Image* tileSet;
+
+	TileMap tilemap;
 
 	float dir;
 	float anim;
