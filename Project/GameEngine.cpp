@@ -67,7 +67,9 @@ void GameEngine::Render()
 		break;
 	}
 
-	TiledSprite animation(this->people, 12, 8);
+	TiledSprite characters(this->people, 4, 2);
+
+	TiledSprite animation = TiledSprite::Create(characters.GetSprite(1, 0), 3, 4);
 	animation.DrawTo(buffer, pos, col, dir);
 
 	buffer->Rectangle('@', { 0, 0, 200, 32 });

@@ -10,15 +10,21 @@ class TiledSprite
 {
 private:
 	Image* image;
+	RECT rect;
 	int col;
 	int row;
 	int cellWidth;
 	int cellHeight;
-
+	
 public:
 	TiledSprite();
 	TiledSprite(Image* image, int col, int row);
+	TiledSprite(Image* image, const RECT& rect, int col, int row);
 	void DrawTo(RenderBuffer* buffer, const POINT& pos, int colNum, int rowNum);
+
+	static TiledSprite Create(Image* image, int col, int row);
+	static TiledSprite Create(Image* image, int totalCol, int totalRow, int startCol, int startRow, int colLen, int rowLen);
+	static TiledSprite Create(const Sprite& sprite, int col, int row);
 
 	inline int GetColumn() { return this->col; }
 	inline int GetRow() { return this->row; }
