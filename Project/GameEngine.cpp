@@ -19,7 +19,7 @@ GameEngine::GameEngine(int width, int height)
 	this->tilemap = &this->map1;
 
 	TiledSprite characters(this->people, 4, 2);
-	TiledSprite character = TiledSprite::Create(characters.GetSprite(1, 0), 3, 4);
+	TiledSprite character = TiledSprite::Create(characters.GetSprite(2, 1), 3, 4);
 	this->player = Character(character);
 
 	POINT p = this->tilemap->CellToWorld(this->tilemap->GetColumn() / 2, this->tilemap->GetRow() / 2);
