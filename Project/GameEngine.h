@@ -8,6 +8,8 @@
 #include "Input.h"
 #include "Log.h"
 #include "TileMap.h"
+#include "Vector2.h"
+#include "Character.h"
 
 class GameEngine
 {
@@ -22,13 +24,11 @@ private:
 	Image* people;
 	Image* tileSet;
 
-	TileMap tilemap;
+	TileMap* tilemap;
+	TileMap map1;
+	TileMap map5;
 
-	float dir;
-	float anim;
-
-	float posX;
-	float posY;
+	Character player;
 
 	bool exit;
 public:
@@ -37,6 +37,6 @@ public:
 	void Update(float deltaTime);
 	void Render();
 
-	bool inline IsExit() { return exit; }
+	inline bool IsExit() { return exit; }
 };
 

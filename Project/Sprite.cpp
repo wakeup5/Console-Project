@@ -9,6 +9,7 @@ Sprite::Sprite(Image* image)
 		image->GetWidth(),
 		image->GetHeight()
 	};
+
 }
 
 Sprite::Sprite(Image* image, const RECT& rect)

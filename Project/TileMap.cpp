@@ -44,9 +44,14 @@ TileMap::TileMap(const char* jsonfile, const TiledSprite& tileset)
 	{
 		json obj = j["layers"][2]["objects"][i];
 		Teleporter t;
-		t.id = obj["properties"]["TeleportMap"];
-		t.x = obj["properties"]["TeleportX"];
-		t.y = obj["properties"]["TeleportY"];
+		t.destID = obj["properties"]["TeleportMap"];
+		t.destX = obj["properties"]["TeleportX"];
+		t.destY = obj["properties"]["TeleportY"];
+
+		t.tileID = obj["properties"]["TIle"];
+
+		t.x = obj["x"] / this->tileWidth;
+		t.y = (obj["y"] / this->tileHeight) - 1; // 
 
 		this->teleporter.push_back(t);
 	}
@@ -59,11 +64,26 @@ TileMap::~TileMap()
 
 }
 
+bool TileMap::GetTeleporter(int x, int y, OUT Teleporter& output)
+{
+	for (int i = 0; i < this->teleporter.size(); i++)
+	{
+		Teleporter t = this->teleporter[i];
+		if (t.x == x && t.y == y)
+		{
+			output = t;
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void TileMap::DrawTo(RenderBuffer* buffer, const POINT& pos)
 {
 	for (int i = 0; i < this->tile.size(); i++) 
 	{
-		int num = this->tile[i] - 1;
+		int num = (this->tile[i] % 100) - 1;
 
 		if (num < 0) 
 		{
@@ -79,6 +99,20 @@ void TileMap::DrawTo(RenderBuffer* buffer, const POINT& pos)
 		POINT offset;
 		offset.x = pos.x + (x * this->tileWidth);
 		offset.y = pos.y + (y * this->tileHeight);
+
+		this->sprite.DrawTo(buffer, offset, tileX, tileY);
+	}
+
+	for (int i = 0; i < this->teleporter.size(); i++) 
+	{
+		Teleporter t = this->teleporter[i];
+
+		int tileX = t.tileID % this->sprite.GetColumn();
+		int tileY = t.tileID / this->sprite.GetColumn();
+
+		POINT offset;
+		offset.x = pos.x + (t.x * this->tileWidth);
+		offset.y = pos.y + (t.y * this->tileHeight);
 
 		this->sprite.DrawTo(buffer, offset, tileX, tileY);
 	}

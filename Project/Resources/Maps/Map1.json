@@ -1,9 +1,9 @@
-{ "compressionlevel":-1,
+{ "compressionlevel":0,
  "editorsettings":
     {
      "export":
         {
-         "format":"json",
+         "format":"json1",
          "target":"Map1.json"
         }
     },
@@ -15,7 +15,7 @@
          "height":31,
          "id":1,
          "name":"Map",
-         "opacity":0.76,
+         "opacity":0.61,
          "type":"tilelayer",
          "visible":true,
          "width":31,
@@ -46,18 +46,20 @@
                  "name":"",
                  "properties":
                     {
+                     "TIle":37,
                      "TeleportMap":5,
                      "TeleportX":15,
                      "TeleportY":19
                     },
                  "propertytypes":
                     {
+                     "TIle":"int",
                      "TeleportMap":"int",
                      "TeleportX":"int",
                      "TeleportY":"int"
                     },
                  "rotation":0,
-                 "type":"",
+                 "type":"Teleporter",
                  "visible":true,
                  "width":16,
                  "x":240,
@@ -70,7 +72,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":3,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "properties":
     {
